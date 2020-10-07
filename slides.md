@@ -4,8 +4,6 @@ _class: lead
 backgroundColor: #def
 paginate: true
 _paginate: false
-footer: 'LD_PRELOAD and you'
-_footer: ''
 ---
 
 # LD_PRELOAD and you
@@ -79,34 +77,109 @@ USER=jesse
 DELIGHT=/Applications/Graphics/3Delight/
 TMUX=/tmp//tmux-501/default,3834,0
 PKG_CONFIG_PATH=:/opt/X11/lib/pkgconfig:/opt/X11/lib/pkgconfig
-.
-.
-.
-[jesse@carcosa:~]$ 
+...
+[jesse@carcosa:~]$ echo USER
+USER
+[jesse@carcosa:~]$ echo $USER
+jesse
 ```
 
 ---
-# Background: Dynamic Linker
+# random_num.c
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(){
+    srand(time(NULL));  // initialize RNG
+
+    for (int i=0; i<30; i++){
+        printf("%d ", rand() % 100);
+    }
+    printf("\n");
+    return 0;
+}
+
+```
+
+---
+# unrandom.c
+```c
+int rand(){
+    return 4; // chosen by fair dice roll.
+              // guaranteed to be random.
+}
+```
+
+---
+# Get on with it!
+
+```bash
+$ ls
+Makefile  random_num.c  README.md  unrandom.c
+
+$ make
+gcc random_num.c -o random_num
+gcc -shared -fPIC unrandom.c -o unrandom.so
+
+$ ./random_num
+50 53 41 57 8 11 77 28 11 77 39 74 54 66 51 19 76 27 38 33 13 36 66 8 70 12 38 7 2 41
+
+$ ./random_num
+65 62 38 29 58 71 94 22 87 47 13 69 43 70 69 37 20 19 98 26 63 93 21 68 22 95 83 63 46 26
+
+$ env LD_PRELOAD=$PWD/unrandom.so ./random_num
+4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+```
+
+---
+# What just happened?
+- Without seeing it, or recompiling it, we changed its behavior.
+- Dynamic linker magic:
+    ```bash
+    [jesse@carcosa:~/projects/ld_preload_afnom_talk/src/]$ ldd ./random_num
+            linux-vdso.so.1 (0x00007ffcb4f17000)
+            libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2151d46000)
+            /lib64/ld-linux-x86-64.so.2 (0x00007f2151f36000)
+    ```
+- We happen to have the source here but imagine if we didn't...
+
 
 
 ---
 # Conclusion
 - XKCD is real
 - Compiled software is not a monolithic, fixed thing and instead something you can play with :smile:
-- What aspects of a program would you alter?
+- What ways could you imagine altering a program to change its behavior?
 
 
 ---
-# Links
 
-Related Tools:
+<style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+}
+</style>
+
+# Related Tools:
 - [preeny](https://github.com/zardus/preeny)
 - [frida](https://frida.re)
+- [OverrideQtSplashscreen](https://github.com/heavyimage/OverrideQtSplashscreen)
+    ![center](https://guidebookgallery.org/pics/splashes/netscape/4.5-communicator.png)
 
-Blog posts:
+
+---
+# More info:
 - [LD_PRELOAD: The Hero We Need and Deserve](https://blog.jessfraz.com/post/ld_preload/)
 - [The LD_PRELOAD trick](http://www.goldsborough.me/c/low-level/kernel/2016/08/29/16-48-53-the_-ld_preload-_trick/)
-- [Using LD_PRELOAD to cheat, inject features...](https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld_preload-to-cheat-inject-features-and-investigate-programs/)
+- [Dynamic linker tricks: Using LD_PRELOAD to cheat, inject features and investigate programs](https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld_preload-to-cheat-inject-features-and-investigate-programs/)
 
 
+---
+<!--_class: lead -->
 
+# Questions?
