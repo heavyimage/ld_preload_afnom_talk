@@ -125,7 +125,7 @@ int rand(){
 
 ```bash
 $ ls
-Makefile  random_num.c  README.md  unrandom.c
+Makefile  random_num.c  unrandom.c
 
 $ make
 gcc random_num.c -o random_num
