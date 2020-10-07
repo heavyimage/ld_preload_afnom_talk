@@ -3,9 +3,12 @@
 #include <time.h>
 
 int main(){
-  srand(time(NULL));
-  int i = 30;
-  while(i--) printf("%d ",rand()%100);
-  printf("\n");
-  return 0;
+    srand(time(NULL));  // initialize RNG
+
+    for (int i=0; i < 30; i++){
+        printf("%d ", rand() % 100);
+    }
+    printf("\n");
+    return 0;
 }
+
