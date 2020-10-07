@@ -1,10 +1,17 @@
 ---
+title: LD_PRELOAD and you
+description: A lightning talk on LD_PRELOAD
+url: https://github.com/heavyimage/afnom_ld_preload_talk
 theme: gaia
 _class: lead
 backgroundColor: #def
 paginate: true
 _paginate: false
 ---
+
+<!-- from: https://eliotakira.com/articles/unix-magic/ -->
+![bg left h:95%](https://eliotakira.com/media/art/unix-magic.jpg)
+
 
 # LD_PRELOAD and you
 
@@ -135,8 +142,18 @@ $ env LD_PRELOAD=$PWD/unrandom.so ./random_num
 ```
 
 ---
+# Or perhaps more impressively...
+
+```bash
+$ export LD_PRELOAD=$PWD/unrandom.so
+
+$ ./random_num
+4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+```
+
+---
 # What just happened?
-- Without seeing it, or recompiling it, we changed its behavior.
+- Without recompiling a program, we changed its behavior.
 - Dynamic linker magic:
     ```bash
     [jesse@carcosa:~/projects/ld_preload_afnom_talk/src/]$ ldd ./random_num
@@ -144,13 +161,14 @@ $ env LD_PRELOAD=$PWD/unrandom.so ./random_num
             libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2151d46000)
             /lib64/ld-linux-x86-64.so.2 (0x00007f2151f36000)
     ```
-- We happen to have the source here but imagine if we didn't...
+- We happen to have `random_num`'s source but imagine if we didn't...
 
 
 
 ---
 # Conclusion
 - XKCD is real
+- Slow down games, alter cryptographic math, print internal vars...
 - Compiled software is not a monolithic, fixed thing and instead something you can play with :smile:
 - What ways could you imagine altering a program to change its behavior?
 
@@ -182,4 +200,7 @@ img[alt~="center"] {
 ---
 <!--_class: lead -->
 
-# Questions?
+![Thanks!](https://i.chzbgr.com/full/9052280320/h6561433B/cat-spending-some-time-physically-on-the-computer)
+
+# Any Questions?
+#### (And thanks for listening!)
