@@ -22,3 +22,4 @@ Per the slides, here's how you can explore LD_PRELOAD
 * [More examples of what you can do with this?](https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld_preload-to-cheat-inject-features-and-investigate-programs/)
 * More emojis?!
 * talk about calling original implementation?
+* Add link to slides: <https://github.com/heavyimage/ld_preload_afnom_talk>
