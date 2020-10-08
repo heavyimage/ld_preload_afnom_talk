@@ -23,3 +23,5 @@ Per the slides, here's how you can explore LD_PRELOAD
 * More emojis?!
 * talk about calling original implementation?
 * Add link to slides: <https://github.com/heavyimage/ld_preload_afnom_talk>
+* My only comment would be - do you need all those words on the slides? There's a lot of full sentences.
+* Can the xkcd comic be a bit bigger?
