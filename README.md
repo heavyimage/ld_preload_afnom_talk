@@ -17,3 +17,8 @@ Per the slides, here's how you can explore LD_PRELOAD
     * `$ ./random_number`
 3. Now, run the random_number binary after preloading the unrandom library:
     * `$ env LD_PRELOAD=$PWD/unrandom.so ./random_num`
+
+## TODO
+* [More examples of what you can do with this?](https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld_preload-to-cheat-inject-features-and-investigate-programs/)
+* More emojis?!
+* talk about calling original implementation?
