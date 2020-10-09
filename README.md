@@ -2,7 +2,7 @@
 This repo contains the slide deck / code examples for my lighning talk about LD_PRELOAD for the University of Birmingham's ethical hacking club [AFNOM](https://afnom.net).
 
 ## Building the slides
-It can be built using [Marp][(https://marp.app) like so:
+It can be built using [Marp](https://marp.app) like so:
 * Development: `marp -w -s ./`
 * Final PDF: `marp --pdf=true slides.md`
 
