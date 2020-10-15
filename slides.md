@@ -26,50 +26,60 @@ img[alt~="center"] {
   display: block;
   margin: 0 auto;
   padding: 80px;
+  width: 600px;
+}
+h4 {
+    text-align: center;
+    font-size: 30px;
 }
 </style>
 
 ![center](https://imgs.xkcd.com/comics/random_number.png)
 
-"RFC 1149.5 specifies 4 as the standard IEEE-vetted random number."
+<br>
+
+#### "RFC 1149.5 specifies 4 as the standard IEEE-vetted random number."
 
 
 ---
 # Why am I showing you this?
 
-Easy!  In the next 10 mins:
+We're going to do it!
 
+<!--
 - We're going to alter a compiled program
 - ...that uses a random number generator
 - ...to always return 4.
     - This is okay because it's IEEE-vetted!
-
+-->
 
 ---
 # Why would you want to do this?
 
 Modifying programs without recompiling them ("dynamically") rules.
 
+<!--
 Useful for:
 
 - CTFs
 - Cheating at things
 - Impressing strangers
 - Vanity projects (*more later*)
-
+-->
 
 
 ---
 # Wat?
 
+- **Environment Variables**
+- the **Dyamic Linker**
+- your new best friend, **LD_PRELOAD**
+
+<!--
 - No seriously
 - It is actually pretty easy
 - Along the way, we're going to learn about useful Linux-y stuff like:
-    - **Environment Variables**
-    - the **Dyamic Linker**
-    - your new best friend, **LD_PRELOAD**
-
-
+-->
 
 ---
 # Background: Environment Variables
@@ -137,12 +147,17 @@ $ ./random_num
 $ ./random_num
 65 62 38 29 58 71 94 22 87 47 13 69 43 70 69 37 20 19 98 26 63 93 21 68 22 95 83 63 46 26
 
+```
+
+---
+# And now...
+
+```bash
 $ env LD_PRELOAD=$PWD/unrandom.so ./random_num
 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
 ```
 
----
-# Or perhaps more impressively...
+or
 
 ```bash
 $ export LD_PRELOAD=$PWD/unrandom.so
@@ -152,26 +167,32 @@ $ ./random_num
 ```
 
 ---
-# What just happened?
-- Without recompiling a program, we changed its behavior.
+# W(h)at just happened?
+
 - Dynamic linker magic:
-    ```bash
-    [jesse@carcosa:~/projects/ld_preload_afnom_talk/src/]$ ldd ./random_num
-            linux-vdso.so.1 (0x00007ffcb4f17000)
-            libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2151d46000)
-            /lib64/ld-linux-x86-64.so.2 (0x00007f2151f36000)
-    ```
+```bash
+[jesse@carcosa:~]$ ldd ./random_num
+        linux-vdso.so.1 (0x00007ffcb4f17000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2151d46000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f2151f36000)
+```
 - We happen to have `random_num`'s source but imagine if we didn't...
 
+<!--
+- Without recompiling a program, we changed its behavior.
+-->
 
 
 ---
 # Conclusion
 - XKCD is real
+- Altering compiled programs is possible
+- What ways can you imagine altering program behavior?
+
+<!--
 - Slow down games, alter cryptographic math, print internal vars...
 - Compiled software is not a monolithic, fixed thing and instead something you can play with :smile:
-- What ways could you imagine altering a program to change its behavior?
-
+-->
 
 ---
 
@@ -180,12 +201,14 @@ img[alt~="center"] {
   display: block;
   margin: 0 auto;
   padding: 10px;
+  width: 400px;
 }
 </style>
 
 # Related Tools:
 - [preeny](https://github.com/zardus/preeny)
 - [frida](https://frida.re)
+- [Intel: Optimizing zlib](https://software.intel.com/content/www/us/en/develop/articles/optimizing-without-breaking-a-sweat.html)
 - [OverrideQtSplashscreen](https://github.com/heavyimage/OverrideQtSplashscreen)
     ![center](https://guidebookgallery.org/pics/splashes/netscape/4.5-communicator.png)
 
@@ -202,5 +225,5 @@ img[alt~="center"] {
 
 ![Thanks!](https://i.chzbgr.com/full/9052280320/h6561433B/cat-spending-some-time-physically-on-the-computer)
 
-# Any Questions?
-#### (And thanks for listening!)
+# Thanks for listening!
+Slides + code @ <https://github.com/heavyimage/ld_preload_afnom_talk>
